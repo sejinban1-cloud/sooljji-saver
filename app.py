@@ -89,8 +89,15 @@ h1, h2, h3 {
 # ---------------------------------------------------
 # 헤더
 # ---------------------------------------------------
-st.title("🥂 술찌세이버")
-st.caption("술 안 마신 사람 눈치 안 보게. 공정한 술자리 정산.")
+st.title("🥂 술찌세이버 | 술자리 정산 계산기")
+st.caption("술 안 마신 사람도 공평하게. 술자리 정산 계산기")
+st.markdown("""
+총 결제금액과 주류비를 입력하면
+술을 마신 사람과 마시지 않은 사람의 정산 금액을 자동 계산합니다.
+
+✔ 술 안 마신 사람은 덜 내고
+✔ 술 마신 사람은 더 내는 공정 정산
+""")
 st.divider()
 
 # ---------------------------------------------------
@@ -302,7 +309,12 @@ with c2:
     st.metric("음주 인원", f"{drinkers_count}명")
 
 with c3:
-    st.metric("주류 비율", f"{round((alcohol_price / total_price) * 100)}%")
+    ratio = 0
+
+if total_price > 0:
+    ratio = round((alcohol_price / total_price) * 100)
+
+st.metric("주류 비율", f"{ratio}%")
 
 # ---------------------------------------------------
 # 공유 문구
@@ -344,9 +356,29 @@ st.markdown("""
 <div class="footer-box">
 <b>술찌세이버 TIP 🍻</b><br>
 술을 적게 마셨다면 눈치 보지 말고 정당하게 덜 내세요.
+
 <br><br>
+
+문의: sooljjisaver@gmail.com
+
+<br><br>
+
 <div class="small-text">
 Made with Streamlit
 </div>
 </div>
 """, unsafe_allow_html=True)
+
+st.divider()
+
+with st.expander("개인정보처리방침"):
+
+    st.write("""
+    술찌세이버는 회원가입 기능을 제공하지 않으며
+    사용자의 개인정보를 저장하지 않습니다.
+
+    서비스 품질 개선을 위해 익명 방문 통계가 수집될 수 있습니다.
+
+    문의:
+    sooljjisaver@gmail.com
+    """)
